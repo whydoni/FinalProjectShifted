@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FF5722"
+    tools:context=".HomeActivity">
+
+    <ImageView
+        android:id="@+id/logo_btpns"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/bpts_ist"
+        app:tint="@color/white"/>
+
+    <LinearLayout
+        android:id="@+id/version"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="10dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/ic_baseline_wifi_24"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="v 1.01"
+            android:layout_gravity="center"
+            android:textColor="@color/white"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_salam"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Selamat Datang,"
+        android:textColor="@color/white"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="25dp"/>
+
+    <TextView
+        android:id="@+id/tv_user"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Username"
+        android:textColor="@color/white"
+        android:layout_below="@id/tv_salam"
+        android:layout_marginLeft="25dp"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/tv_salam"
+        android:layout_marginTop="55dp"
+        android:layout_marginLeft="200dp"
+        android:orientation="horizontal">
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/ibt_logout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_baseline_exit_to_app_24"/>
+        <TextView
+            android:layout_width="35dp"
+            android:layout_height="wrap_content"
+            android:text="Keluar"
+            android:layout_gravity="center"
+            android:textColor="@color/white"
+            android:textSize="10sp"
+            android:layout_marginLeft="3dp"/>
+    </LinearLayout>
+
+    <ImageSwitcher
+        android:id="@+id/image_switcher"
+        android:layout_width="match_parent"
+        android:layout_height="204dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_below="@id/tv_user"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/bg_transparent">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
+            android:background="@drawable/banner2"/>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
+            android:background="@drawable/banner3"/>
+    </ImageSwitcher>
+
+    <RelativeLayout
+        android:id="@+id/user_saldo"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_below="@id/image_switcher"
+        android:background="@drawable/bg_trasnparent_orange"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp">
+
+        <TextView
+            android:id="@+id/text_saldo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:textColor="@color/white"
+            android:text="Saldo Anda"/>
+
+        <TextView
+            android:id="@+id/tv_saldo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="IDR 1.000.000,00"
+            android:textColor="@color/white"
+            android:layout_gravity="end"
+            android:layout_alignParentEnd="true"
+            android:layout_marginLeft="10dp"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/menu_holder"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_below="@id/user_saldo"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:background="@drawable/bg_transparent">
+
+        <LinearLayout
+            android:id="@+id/menu_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="15dp">
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/ibt_mutasi"
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:background="@drawable/ic_twotone_account_balance_wallet_24" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="11sp"
+                android:text="Mutasi Rekening"
+                android:textColor="#FF5722"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_toRightOf="@id/menu_1">
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/ibt_credit"
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:background="@drawable/ic_twotone_credit_card_24" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="11sp"
+                android:text="Pembayaran Kartu Kredit"
+                android:textColor="#FF5722"/>
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginTop="80dp"
+        android:layout_below="@id/menu_holder">
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/bpts_ist"
+            app:tint="@color/white" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_gravity="center"
+            android:textColor="@color/white"
+            android:textSize="10sp"
+            android:text="@string/splash_text"/>
+    </LinearLayout>
+</RelativeLayout>
