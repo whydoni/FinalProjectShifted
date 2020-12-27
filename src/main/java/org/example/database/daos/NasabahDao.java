@@ -27,9 +27,9 @@ public class NasabahDao {
 
     public Nasabah findUser(String username) {
         try {
-            String select = "SELECT a FROM Nasabah a WHERE username=:username";
+            String select = "SELECT a FROM Nasabah a WHERE username=?1";
             Query query = entityManager.createQuery(select, Nasabah.class);
-            query.setParameter("username", username);
+            query.setParameter(1, username);
             System.out.println("debug : "+ (Nasabah)query.getSingleResult());
             return (Nasabah) query.getSingleResult();
         } catch (NoResultException e){
@@ -39,9 +39,9 @@ public class NasabahDao {
 
     public Nasabah findUserAcc(String accountnumber) {
         try {
-            String select = "SELECT a FROM Nasabah a WHERE accountnumber=:accountnumber";
+            String select = "SELECT a FROM Nasabah a WHERE accountnumber=?1";
             Query query = entityManager.createQuery(select, Nasabah.class);
-            query.setParameter("accountnumber", accountnumber);
+            query.setParameter(1, accountnumber);
             System.out.println("debug : "+ (Nasabah)query.getSingleResult());
             return (Nasabah) query.getSingleResult();
         } catch (NoResultException e){
@@ -52,9 +52,9 @@ public class NasabahDao {
 
     public Integer getSaldo(String username) {
         try {
-            String select = "SELECT balance FROM Nasabah WHERE username=:username";
+            String select = "SELECT balance FROM Nasabah WHERE username=?1";
             Query query = entityManager.createQuery(select);
-            query.setParameter("username", username);
+            query.setParameter(1, username);
             System.out.println("debug : "+ (Integer)query.getSingleResult());
             return (Integer) query.getSingleResult();
         } catch (NoResultException e){
@@ -62,11 +62,23 @@ public class NasabahDao {
         }
     }
 
+    public String getRekening(String username) {
+        try {
+            String select = "SELECT accountnumber FROM Nasabah WHERE username=?1";
+            Query query = entityManager.createQuery(select);
+            query.setParameter(1, username);
+            System.out.println("debug : "+ (String)query.getSingleResult());
+            return (String) query.getSingleResult();
+        } catch (NoResultException e){
+            return null;
+        }
+    }
+
     public List<Mutasi> getMutasi(String accountnumber) {
         try {
-            String select = "SELECT a FROM Mutasi a WHERE accountnumber=:accountnumber";
+            String select = "SELECT a FROM Mutasi a WHERE accountnumber=?1";
             Query query = entityManager.createQuery(select, Mutasi.class);
-            query.setParameter("accountnumber", accountnumber);
+            query.setParameter(1, accountnumber);
             System.out.println("debug : "+ (List<Mutasi>)query.getResultList());
             return (List<Mutasi>) query.getResultList();
         } catch (NoResultException e){
@@ -90,20 +102,6 @@ public class NasabahDao {
 //        nextNasabah.setStatus(currentNasabah.getStatus());
 //        entityManager.merge(nextNasabah);
 //    }
-
-
-    public void doLogin(String id) {
-        Nasabah nasabah = entityManager.find(Nasabah.class, Long.valueOf(id));
-            Boolean statusLogin = true;
-            nasabah.setIsLogin(statusLogin);
-    }
-
-
-    public void doLogout(String id) {
-        Nasabah nasabah = entityManager.find(Nasabah.class, Long.valueOf(id));
-        Boolean statusLogin = false;
-        nasabah.setIsLogin(statusLogin);
-    }
 
     public boolean isRegistered(String nasabahString) {
         List<Nasabah> listAllNasabah = getAllNsb();

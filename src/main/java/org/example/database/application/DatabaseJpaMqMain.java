@@ -20,6 +20,7 @@ public class DatabaseJpaMqMain {
             receiveMq.regisNasabah();
             receiveMq.findByUsername();
             receiveMq.getSaldoNsb();
+            receiveMq.getRekNsb();
             receiveMq.getMutasi();
 
             //DB Consumer for Session isLogin

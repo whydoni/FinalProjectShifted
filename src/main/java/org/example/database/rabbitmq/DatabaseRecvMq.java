@@ -172,6 +172,52 @@ public class DatabaseRecvMq {
         }
     }
 
+    public void getRekNsb(){
+        try{
+            connectToRabbitMQ();
+            channel = connection.createChannel();
+            channel.queueDeclare("getRekeningNasabah", false, false, false, null);
+            DeliverCallback deliverCallback = (consumerTag, delivery ) -> {
+                String usernameNsb = new String(delivery.getBody(), StandardCharsets.UTF_8);
+                System.out.println(" [x] Received '" + usernameNsb + "'");
+                connectJPA();
+                try {
+                    Integer rekening = Integer.valueOf(nasabahDao.getRekening(usernameNsb));
+                    Nasabah nasabah = nasabahDao.findUser(usernameNsb);
+                    boolean statusLogin = false;
+                    for (Session obj: session){
+                        if (nasabah != null){
+                            if (obj.getUsernames().equalsIgnoreCase(nasabah.getUsername()) && obj.getPasswords().equalsIgnoreCase(nasabah.getPassword())){
+                                statusLogin = true;
+                                break;
+                            }
+                        }
+                    }  if (statusLogin) {
+                        String nasabahString = new Gson().toJson(nasabah);
+                        String rekeningString = new Gson().toJson(rekening);
+                        if(nasabahDao.isRegistered(nasabahString)){
+                            send.sendRekeningData(rekeningString);
+                        } else {
+                            send.sendRekeningData("User not found!");
+                        }
+                    } else {
+                        send.sendRekeningData("Login is required, please Login first!");
+                    }
+
+
+                    send.sendToRestApi(new Gson().toJson(rekening));
+                } catch (TimeoutException e) {
+                    e.printStackTrace();
+                }
+                commitJPA();
+            };
+            channel.basicConsume("getRekeningNasabah", true, deliverCallback, consumerTag -> {
+            });
+        } catch (Exception e) {
+            System.out.println("ERROR! on getRekening : " + e);
+        }
+    }
+
 
     public void getMutasi(){
         try{

@@ -193,6 +193,43 @@ public class RecvMqRestAPI {
         return saldoResponse;
     }
 
+    public String RecvRekUser() throws IOException, TimeoutException {
+        String rekResponse = "";
+        try {
+            ConnectionFactory factory = new ConnectionFactory();
+            factory.setHost("localhost");
+            Connection connection = factory.newConnection();
+            Channel channel = connection.createChannel();
+
+            channel.queueDeclare("sendRekeningData", false, false, false, null);
+            System.out.println(" [*] Waiting for messages from database");
+
+            DeliverCallback deliverCallback = (consumerTag, delivery) -> {
+                String message = new String(delivery.getBody(), StandardCharsets.UTF_8);
+                System.out.println(" [x] Received '" + message + "'");
+                this.message = message;
+            };
+            channel.basicConsume("sendRekeningData", true, deliverCallback, consumerTag -> { });
+            TimeUnit.SECONDS.sleep(1);
+            if (!this.message.equals("0")) {
+                JSONObject object = new JSONObject();
+                object.put("response", 200);
+                object.put("status", "Success");
+                object.put("message", message);
+                rekResponse = object.toJSONString();
+            } else {
+                JSONObject object = new JSONObject();
+                object.put("response", 400);
+                object.put("status", "Error");
+                object.put("message", "Error get Rekening");
+                rekResponse = object.toJSONString();
+            }
+        } catch (Exception e) {
+            System.out.println("Exception Rekening: " + e);
+        }
+        return rekResponse;
+    }
+
     public String RecvMutasiUser() throws IOException, TimeoutException {
         try {
             ConnectionFactory factory = new ConnectionFactory();

@@ -48,6 +48,19 @@ public class SendMqRestAPI {
         }
     }
 
+    //Get Rekening Nasabah by Username
+    public static void getRekeningNasabah(String username) throws IOException, TimeoutException {
+        ConnectionFactory factory = new ConnectionFactory();
+        factory.setHost("localhost");
+        try (Connection connection = factory.newConnection();
+             Channel channel = connection.createChannel()) {
+            channel.queueDeclare("getRekeningNasabah", false, false, false, null);
+            channel.basicPublish("", "getRekeningNasabah", null, username.getBytes(StandardCharsets.UTF_8));
+            System.out.println(" [x] Sent '" + username + "'");
+        }
+    }
+
+    //Get List Mutasi Nasabah by accountnumber
     public static void getMutasi(String accountnumber) throws IOException, TimeoutException {
         ConnectionFactory factory = new ConnectionFactory();
         factory.setHost("localhost");

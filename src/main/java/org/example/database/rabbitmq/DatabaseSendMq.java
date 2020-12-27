@@ -79,6 +79,19 @@ public class DatabaseSendMq {
         }
     }
 
+    public void sendRekeningData(String message) {
+        ConnectionFactory factory = new ConnectionFactory();
+        factory.setHost("localhost");
+        try (Connection connection = factory.newConnection();
+             Channel channel = connection.createChannel()) {
+            channel.queueDeclare("sendRekeningData", false, false, false, null);
+            channel.basicPublish("", "sendRekeningData", null, message.getBytes(StandardCharsets.UTF_8));
+            System.out.println(" [x] Sent '" + message + "'");
+        } catch (Exception e){
+            System.out.println("Error send rekening nasabah : " + e);
+        }
+    }
+
     public void sendMutasiData(String message) {
         ConnectionFactory factory = new ConnectionFactory();
         factory.setHost("localhost");

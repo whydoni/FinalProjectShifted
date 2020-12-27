@@ -31,7 +31,7 @@ public class Nasabah {
     String accountnumber;
 
     @Column(name = "balance")
-    Integer balance = 500000;
+    Integer balance = 5000000;
 
     @Column(name = "isLogin")
     Boolean isLogin = false;

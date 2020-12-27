@@ -66,6 +66,22 @@ public class RestAPIController {
         }
     }
 
+    //--------------------------Get Rekening Nasabah by Username-------------------------------------
+    @RequestMapping(value = "/mbanking/api/rekening/{username}", method = RequestMethod.GET)
+    public ResponseEntity<?> getRekNsb(@PathVariable("username") String username) {
+        try {
+            SendMqRestAPI.getRekeningNasabah(username);
+            return new ResponseEntity<>(restApiReceive.RecvRekUser(), HttpStatus.OK);
+        }catch (Exception e){
+            System.out.println("error = " + e);
+            JSONObject object = new JSONObject();
+            object.put("response",400);
+            object.put("status","Error");
+            object.put("message","Error on get Rekening");
+            return new ResponseEntity<>(object, HttpStatus.OK);
+        }
+    }
+
 
     //--------------------------Get Mutasi Nasabah by Username-------------------------------------
     @RequestMapping(value = "/mbanking/api/mutasi/{accountnumber}", method = RequestMethod.GET)
