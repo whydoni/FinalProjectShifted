@@ -12,19 +12,25 @@ import retrofit2.http.Path;
 
 public interface RestAPI {
 
-    @POST("/login/")
+    @POST("/mbanking/api/login/")
     Call<APIResponse> loginNasabah(@Body LoginModel body);
 
-    @POST("/nasabah/")
+    @POST("/mbanking/api/register/")
     Call<APIResponse> registerNasabah(@Body RegisterModel body);
 
-    @GET("/saldo/{username}")
+    @GET("/mbanking/api/saldo/{username}")
     Call<APIResponse> getSaldo(@Path("username")String checkSaldo);
 
-    @POST("/logout/")
+    @POST("/mbanking/api/logout/")
     Call<APIResponse> logoutNasabah();
 
-    @GET("/mutasi/{accountnumber}")
-    Call<APIResponse> getMutasi(@Path("accountnumber")String accountnumber);
+    @GET("/mbanking/api/nasabah/{username}")
+    Call<APIResponse> getNasabah(@Path("username")String username);
+
+    @GET("/mbanking/api/mutasi/{accountnumber}")
+    Call<APIResponse> getMutasi(@Path("accountnumber")String cekAccount);
+
+    @GET("/mbanking/api/rekening/{username}")
+    Call<APIResponse> getRekening(@Path("username")String username);
 
 }

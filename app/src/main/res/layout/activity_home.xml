@@ -78,36 +78,34 @@
             android:layout_marginLeft="3dp"/>
     </LinearLayout>
 
-    <ImageSwitcher
+    <androidx.viewpager.widget.ViewPager
         android:id="@+id/image_switcher"
         android:layout_width="match_parent"
-        android:layout_height="204dp"
+        android:layout_height="180dp"
         android:layout_marginLeft="25dp"
         android:layout_marginRight="25dp"
         android:layout_below="@id/tv_user"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/bg_transparent">
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_gravity="center"
-            android:layout_marginLeft="2dp"
-            android:layout_marginRight="2dp"
-            android:background="@drawable/banner2"/>
+        android:layout_marginTop="30dp">
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_gravity="center"
-            android:layout_marginLeft="2dp"
-            android:layout_marginRight="2dp"
-            android:background="@drawable/banner3"/>
-    </ImageSwitcher>
+<!--        <ImageView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:background="@drawable/banner4"/>-->
+
+<!--        <ImageView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="200dp"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:layout_marginLeft="2dp"-->
+<!--            android:layout_marginRight="2dp"-->
+<!--            android:background="@drawable/banner3"/>-->
+    </androidx.viewpager.widget.ViewPager>
 
     <RelativeLayout
         android:id="@+id/user_saldo"
         android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_height="35dp"
         android:layout_below="@id/image_switcher"
         android:background="@drawable/bg_trasnparent_orange"
         android:orientation="horizontal"
@@ -127,10 +125,22 @@
             android:id="@+id/tv_saldo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="IDR 1.000.000,00"
+            android:text="IDR 0,00"
             android:textColor="@color/white"
             android:layout_gravity="end"
             android:layout_alignParentEnd="true"
+            android:layout_marginLeft="10dp"/>
+
+        <TextView
+            android:id="@+id/tv_rekening"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1122xxxx"
+            android:textColor="@color/white"
+            android:layout_gravity="end"
+            android:layout_alignParentEnd="true"
+            android:textSize="10sp"
+            android:layout_marginTop="20dp"
             android:layout_marginLeft="10dp"/>
     </RelativeLayout>
 

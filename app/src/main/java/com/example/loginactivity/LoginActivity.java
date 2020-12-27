@@ -3,10 +3,14 @@ package com.example.loginactivity;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
 
@@ -29,6 +33,7 @@ public class LoginActivity extends AppCompatActivity {
         onClickGroup();
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     void onClickGroup(){
         binding.btRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -41,6 +46,20 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 doLogin();
+            }
+        });
+        binding.btReveal.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch(event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        binding.etPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                        return true;
+                    case MotionEvent.ACTION_UP:
+                        binding.etPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                        return true;
+                }
+                return false;
             }
         });
     }
@@ -66,10 +85,6 @@ public class LoginActivity extends AppCompatActivity {
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putString("com.example.loginactivity.login", binding.etUsername.getText().toString());
                     editor.apply();
-                    SharedPreferences sharedPreferencesNorek = getSharedPreferences("sharedNorek", Context.MODE_PRIVATE);
-                    SharedPreferences.Editor editorNorek = sharedPreferencesNorek.edit();
-                    editorNorek.putString("sharedNorek", binding.etUsername.getText().toString());
-                    editorNorek.apply();
                     Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
                     startActivity(intent);
                 }

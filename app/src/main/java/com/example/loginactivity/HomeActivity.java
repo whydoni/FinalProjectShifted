@@ -3,6 +3,7 @@ package com.example.loginactivity;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.viewpager.widget.ViewPager;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,16 +11,26 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 
+import com.example.loginactivity.adapter.ViewPagerAdapter;
 import com.example.loginactivity.databinding.ActivityHomeBinding;
 import com.example.loginactivity.model.APIResponse;
+import com.example.loginactivity.model.MutasiModel;
+import com.example.loginactivity.model.NasabahModel;
 import com.example.loginactivity.viewmodel.AppViewModel;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.util.ArrayList;
+import java.util.List;
 
 public class HomeActivity extends AppCompatActivity {
+    ViewPager viewPager;
     private ActivityHomeBinding binding;
     private AppViewModel appViewModel;
+    ArrayList<NasabahModel> nasabahArrayList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +40,11 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(view);
         init();
         onClickGroup();
+        viewPager = (ViewPager) findViewById(R.id.image_switcher);
+
+        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(this);
+
+        viewPager.setAdapter(viewPagerAdapter);
     }
 
     void init(){
@@ -37,18 +53,20 @@ public class HomeActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("com.example.loginactivity.login", Context.MODE_PRIVATE);
         String username = sharedPreferences.getString("com.example.loginactivity.login", "");
         System.out.println("Username : " + username);
-        binding.tvUser.setText(username);
-        appViewModel.getSaldo(username).observe(this, new Observer<APIResponse>() {
+        appViewModel.getNasabah(username).observe(this, new Observer<APIResponse>() {
             @Override
             public void onChanged(APIResponse apiResponse) {
-                DecimalFormat kurs = (DecimalFormat) DecimalFormat.getCurrencyInstance();
-                DecimalFormatSymbols formatRp = new DecimalFormatSymbols();
-                formatRp.setCurrencySymbol("IDR ");
-                formatRp.setMonetaryDecimalSeparator(',');
-                formatRp.setGroupingSeparator('.');
-                kurs.setDecimalFormatSymbols(formatRp);
-                Double saldo = Double.parseDouble(apiResponse.getMessage());
-                binding.tvSaldo.setText(kurs.format(saldo));
+                System.out.println(apiResponse.getMessage());
+                NasabahModel nasabahs;
+                Type listType = new TypeToken<NasabahModel>(){}.getType();
+                nasabahs = new Gson().fromJson(apiResponse.getMessage(), listType);
+                binding.tvUser.setText(nasabahs.getFullname());
+                binding.tvRekening.setText(nasabahs.getAccountnumber());
+                binding.tvSaldo.setText(nasabahs.getBalance().toString());
+                SharedPreferences sharedPreferencesNorek = getSharedPreferences("sharedNorek", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editorNorek = sharedPreferencesNorek.edit();
+                editorNorek.putString("sharedNorek", binding.tvRekening.getText().toString());
+                editorNorek.apply();
             }
         });
     }

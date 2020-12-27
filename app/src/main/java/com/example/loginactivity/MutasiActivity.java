@@ -16,12 +16,16 @@ import com.example.loginactivity.databinding.ActivityMutasiBinding;
 import com.example.loginactivity.model.APIResponse;
 import com.example.loginactivity.model.MutasiModel;
 import com.example.loginactivity.viewmodel.AppViewModel;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.List;
 
 public class MutasiActivity extends AppCompatActivity {
-    private ActivityMutasiBinding binding;
-    private AppViewModel appViewModel;
+    ActivityMutasiBinding binding;
+    AppViewModel appViewModel;
     ArrayList<MutasiModel> mutasiArrayList = new ArrayList<>();
     MutasiAdapter mutasiAdapter;
 
@@ -52,7 +56,13 @@ public class MutasiActivity extends AppCompatActivity {
         appViewModel.getMutasi(accountnumber).observe(this, new Observer<APIResponse>() {
             @Override
             public void onChanged(APIResponse apiResponse) {
-//                if()
+                System.out.println(apiResponse.getMessage());
+                List<MutasiModel> mutasis;
+                Type listType = new TypeToken<List<MutasiModel>>(){}.getType();
+                mutasis = new Gson().fromJson(apiResponse.getMessage(), listType);
+                mutasiArrayList.clear();
+                mutasiArrayList.addAll(mutasis);
+                mutasiAdapter.notifyDataSetChanged();
             }
         });
     }

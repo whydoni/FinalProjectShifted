@@ -44,12 +44,13 @@
     <LinearLayout
         android:id="@+id/list_holder"
         android:layout_width="match_parent"
-        android:layout_height="500dp"
-        android:layout_marginTop="115dp"
+        android:layout_height="570dp"
+        android:layout_marginTop="70dp"
         android:layout_marginLeft="25dp"
         android:layout_marginRight="25dp"
         android:background="@drawable/bg_transparent"
         android:orientation="vertical">
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -61,26 +62,66 @@
             android:textSize="20sp"
             android:background="@drawable/bg_transparent"/>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvlistMutasi"
-            android:layout_width="match_parent"
-            android:layout_height="452dp"
-            android:layout_marginTop="10dp"
-            tools:listitem="@layout/item_mutasi"
-            android:orientation="vertical"
-            android:background="@drawable/bg_transparent"/>
-    </LinearLayout>
+        <ScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/pagination"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textColor="@color/white"
-        android:layout_below="@id/list_holder"
-        android:layout_marginTop="10dp"
-        android:textSize="15sp"
-        android:text="1/3"/>
+            <HorizontalScrollView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="10dp">
+                        <TextView
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
+                            android:text="Tanggal Waktu"/>
+                        <TextView
+                            android:layout_width="140dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
+                            android:text="Uraian"/>
+                        <TextView
+                            android:layout_width="50dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
+                            android:text="Tipe"/>
+                        <TextView
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
+                            android:text="Nominal"/>
+                        <TextView
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
+                            android:text="Saldo"/>
+                    </LinearLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvlistMutasi"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        tools:listitem="@layout/item_mutasi"/>
+                </LinearLayout>
+            </HorizontalScrollView>
+        </ScrollView>
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -88,7 +129,7 @@
         android:orientation="horizontal"
         android:layout_marginLeft="25dp"
         android:layout_marginRight="25dp"
-        android:layout_marginTop="55dp"
+        android:layout_marginTop="30dp"
         android:layout_below="@id/list_holder">
 
         <ImageView

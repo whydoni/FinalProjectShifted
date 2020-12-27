@@ -1,5 +1,6 @@
 package com.example.loginactivity.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -47,7 +48,6 @@ public class MutasiAdapter extends RecyclerView.Adapter<MutasiAdapter.MutasiView
     }
 
     public class MutasiViewHolder extends RecyclerView.ViewHolder{
-
         TextView datetime;
         TextView details;
         TextView type;

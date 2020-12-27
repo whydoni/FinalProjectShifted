@@ -101,6 +101,23 @@ public class AppRepository {
         return saldoRequest;
     }
 
+    public MutableLiveData<APIResponse> getRekening(String string){
+        MutableLiveData<APIResponse> rekeningRequest = new MutableLiveData<>();
+        RestAPI.getRekening(string).enqueue(new Callback<APIResponse>() {
+            @Override
+            public void onResponse(Call<APIResponse> call, Response<APIResponse> response) {
+                rekeningRequest.setValue(response.body());
+                System.out.println("Testv");
+            }
+
+            @Override
+            public void onFailure(Call<APIResponse> call, Throwable t) {
+                rekeningRequest.setValue(null);
+            }
+        });
+        return rekeningRequest;
+    }
+
     public MutableLiveData<APIResponse> getMutasi(String accountnumber){
         MutableLiveData<APIResponse> mutasiRequest = new MutableLiveData<>();
         RestAPI.getMutasi(accountnumber).enqueue(new Callback<APIResponse>() {
@@ -115,5 +132,21 @@ public class AppRepository {
             }
         });
         return mutasiRequest;
+    }
+
+    public MutableLiveData<APIResponse> getNasabah(String username){
+        MutableLiveData<APIResponse> nasabahRequest = new MutableLiveData<>();
+        RestAPI.getNasabah(username).enqueue(new Callback<APIResponse>() {
+            @Override
+            public void onResponse(Call<APIResponse> call, Response<APIResponse> response) {
+                nasabahRequest.setValue(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<APIResponse> call, Throwable t) {
+                nasabahRequest.setValue(null);
+            }
+        });
+        return nasabahRequest;
     }
 }

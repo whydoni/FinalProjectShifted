@@ -52,11 +52,27 @@ public class AppViewModel extends ViewModel {
         return mutableLiveData;
     }
 
+    public LiveData<APIResponse> getRekening(String string){
+        if (mutableLiveData == null){
+            appRepository = AppRepository.getInstance();
+        }
+        mutableLiveData = appRepository.getRekening(string);
+        return mutableLiveData;
+    }
+
     public LiveData<APIResponse> getMutasi(String accountnumber){
         if (mutableLiveData == null){
             appRepository = AppRepository.getInstance();
         }
         mutableLiveData = appRepository.getMutasi(accountnumber);
+        return mutableLiveData;
+    }
+
+    public LiveData<APIResponse> getNasabah(String username){
+        if (mutableLiveData == null){
+            appRepository = AppRepository.getInstance();
+        }
+        mutableLiveData = appRepository.getNasabah(username);
         return mutableLiveData;
     }
 }
