@@ -37,6 +37,18 @@ public class NasabahDao {
         }
     }
 
+    public Nasabah findUserAcc(String accountnumber) {
+        try {
+            String select = "SELECT a FROM Nasabah a WHERE accountnumber=:accountnumber";
+            Query query = entityManager.createQuery(select, Nasabah.class);
+            query.setParameter("accountnumber", accountnumber);
+            System.out.println("debug : "+ (Nasabah)query.getSingleResult());
+            return (Nasabah) query.getSingleResult();
+        } catch (NoResultException e){
+            return null;
+        }
+    }
+
 
     public Integer getSaldo(String username) {
         try {
@@ -51,7 +63,7 @@ public class NasabahDao {
     }
 
     public List<Mutasi> getMutasi(String accountnumber) {
-        try { //from Nasabah nya nanti diganti dulu ke model mutasi
+        try {
             String select = "SELECT a FROM Mutasi a WHERE accountnumber=:accountnumber";
             Query query = entityManager.createQuery(select, Mutasi.class);
             query.setParameter("accountnumber", accountnumber);

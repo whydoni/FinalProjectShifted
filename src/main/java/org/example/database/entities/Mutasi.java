@@ -15,7 +15,7 @@ public class Mutasi {
     @Id
     @Column(name = "datetime")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd hh:mm:ss")
-    private Timestamp waktuMutasi;
+    private Timestamp datetime;
 
     @Column(name = "accountnumber")
     String accountnumber;
@@ -33,11 +33,11 @@ public class Mutasi {
     Long balance;
 
     public Timestamp getWaktuMutasi() {
-        return waktuMutasi;
+        return datetime;
     }
 
     public void setWaktuMutasi(Timestamp waktuMutasi) {
-        this.waktuMutasi = waktuMutasi;
+        this.datetime = waktuMutasi;
     }
 
     public String getAccountnumber() {

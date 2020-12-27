@@ -20,7 +20,7 @@ public class RestAPIController {
 
 
     //--------------------------Register Nasabah-------------------------------------
-    @RequestMapping(value = "/nasabah/", method = RequestMethod.POST)
+    @RequestMapping(value = "/mbanking/api/register/", method = RequestMethod.POST)
     public ResponseEntity<?> registerNsb(@RequestBody Nasabah nasabah) {
         try {
             SendMqRestAPI.registerNasabah(new Gson().toJson(nasabah));
@@ -34,21 +34,24 @@ public class RestAPIController {
 
 
     //--------------------------Find Data Nasabah by Username-------------------------------------
-    @RequestMapping(value = "/nasabah/{username}", method = RequestMethod.GET)
+    @RequestMapping(value = "/mbanking/api/nasabah/{username}", method = RequestMethod.GET)
     public ResponseEntity<?> findNsb(@PathVariable("username") String username) {
         try {
             SendMqRestAPI.findNasabah(username);
-            restApiReceive.RecvDataUser();
-            Thread.sleep(1000);
+            return new ResponseEntity<>(restApiReceive.RecvDataUser(), HttpStatus.OK);
         }catch (Exception e){
-            System.out.println("Error on find data nasabah  :  " + e);
+            System.out.println("error = " + e);
+            JSONObject object = new JSONObject();
+            object.put("response",400);
+            object.put("status","Error");
+            object.put("message","Error on get Data Nasabah");
+            return new ResponseEntity<>(object, HttpStatus.OK);
         }
-        return new ResponseEntity<>(restApiReceive.getDatamessage(), HttpStatus.OK);
     }
 
 
     //--------------------------Get Saldo Nasabah by Username-------------------------------------
-    @RequestMapping(value = "/saldo/{username}", method = RequestMethod.GET)
+    @RequestMapping(value = "/mbanking/api/saldo/{username}", method = RequestMethod.GET)
     public ResponseEntity<?> getSaldoNsb(@PathVariable("username") String username) {
         try {
             SendMqRestAPI.getSaldoNasabah(username);
@@ -65,7 +68,7 @@ public class RestAPIController {
 
 
     //--------------------------Get Mutasi Nasabah by Username-------------------------------------
-    @RequestMapping(value = "/mutasi/{accountnumber}", method = RequestMethod.GET)
+    @RequestMapping(value = "/mbanking/api/mutasi/{accountnumber}", method = RequestMethod.GET)
     public ResponseEntity<?> getMutasi(@PathVariable("accountnumber") String accountnumber) {
         try {
             SendMqRestAPI.getMutasi(accountnumber);
@@ -75,14 +78,14 @@ public class RestAPIController {
             JSONObject object = new JSONObject();
             object.put("response",400);
             object.put("status","Error");
-            object.put("message","Error on get Saldo");
+            object.put("message","Error on get Mutasi");
             return new ResponseEntity<>(object, HttpStatus.OK);
         }
     }
 
 
     //--------------------------Login Nasabah-------------------------------------
-    @RequestMapping(value = "/login/", method = RequestMethod.POST)
+    @RequestMapping(value = "/mbanking/api/login/", method = RequestMethod.POST)
     public ResponseEntity<?> loginNsb(@RequestBody Nasabah nasabah) {
         try {
             SendMqRestAPI.loginNasabah(new Gson().toJson(nasabah));
@@ -99,7 +102,7 @@ public class RestAPIController {
 
 
     //--------------------------Logout Nasabah-------------------------------------
-    @RequestMapping(value = "/logout/", method = RequestMethod.POST)
+    @RequestMapping(value = "/mbanking/api/logout/", method = RequestMethod.POST)
     public ResponseEntity<?> logutNsb() {
         try {
             SendMqRestAPI.logoutNasabah();

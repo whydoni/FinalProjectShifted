@@ -168,7 +168,7 @@ public class DatabaseRecvMq {
             channel.basicConsume("getSaldoNasabah", true, deliverCallback, consumerTag -> {
             });
         } catch (Exception e) {
-            System.out.println("ERROR! on getSaldo -dbrmq : " + e);
+            System.out.println("ERROR! on getSaldo : " + e);
         }
     }
 
@@ -183,10 +183,27 @@ public class DatabaseRecvMq {
                 System.out.println(" [x] Received '" + accountnumber + "'");
                 connectJPA();
                 try {
-                    List<Mutasi> mutasi = nasabahDao.getMutasi(accountnumber);
-                    String mutasiString = new Gson().toJson(mutasi);
-                    send.sendMutasiData(mutasiString);
-//                    send.sendToRestApi(new Gson().toJson(mutasi));
+                    Nasabah nasabah = nasabahDao.findUserAcc(accountnumber);
+                    boolean statusLogin = false;
+                    for (Session obj: session){
+                        if (nasabah != null){
+                            if (obj.getUsernames().equalsIgnoreCase(nasabah.getUsername()) && obj.getPasswords().equalsIgnoreCase(nasabah.getPassword())){
+                                statusLogin = true;
+                                break;
+                            }
+                        }
+                    }  if (statusLogin) {
+                        List<Mutasi> mutasi = nasabahDao.getMutasi(accountnumber);
+                        String mutasiString = new Gson().toJson(mutasi);
+                        String nasabahString = new Gson().toJson(nasabah);
+                        if(nasabahDao.isRegistered(nasabahString)){
+                            send.sendMutasiData(mutasiString);
+                        } else {
+                            send.sendMutasiData("User not found!");
+                        }
+                    } else {
+                        send.sendMutasiData("Login is required, please Login first!");
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -195,7 +212,7 @@ public class DatabaseRecvMq {
             channel.basicConsume("getMutasi", true, deliverCallback, consumerTag -> {
             });
         } catch (Exception e) {
-            System.out.println("ERROR! on getSaldo -dbrmq : " + e);
+            System.out.println("ERROR! on getSaldo : " + e);
         }
     }
 

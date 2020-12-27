@@ -27,9 +27,6 @@ public class Nasabah {
     @Column(name = "password")
     String password;
 
-    @Column(name = "status")
-    String status = "Active";
-
     @Column(name = "accountnumber")
     String accountnumber;
 
@@ -86,14 +83,6 @@ public class Nasabah {
         this.password = password;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
     public Boolean getIsLogin() {
         return isLogin;
     }
@@ -132,12 +121,12 @@ public class Nasabah {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Nasabah nasabah = (Nasabah) o;
-        return Objects.equals(id, nasabah.id) && Objects.equals(fullname, nasabah.fullname) && Objects.equals(address, nasabah.address) && Objects.equals(phonenumber, nasabah.phonenumber) && Objects.equals(username, nasabah.username) && Objects.equals(password, nasabah.password) && Objects.equals(status, nasabah.status) && Objects.equals(accountnumber, nasabah.accountnumber) && Objects.equals(balance, nasabah.balance) && Objects.equals(isLogin, nasabah.isLogin);
+        return Objects.equals(id, nasabah.id) && Objects.equals(fullname, nasabah.fullname) && Objects.equals(address, nasabah.address) && Objects.equals(phonenumber, nasabah.phonenumber) && Objects.equals(username, nasabah.username) && Objects.equals(password, nasabah.password) && Objects.equals(accountnumber, nasabah.accountnumber) && Objects.equals(balance, nasabah.balance) && Objects.equals(isLogin, nasabah.isLogin);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, fullname, address, phonenumber, username, password, status, accountnumber, balance, isLogin);
+        return Objects.hash(id, fullname, address, phonenumber, username, password, accountnumber, balance, isLogin);
     }
 
     @Override
@@ -149,7 +138,6 @@ public class Nasabah {
                 ", phonenumber='" + phonenumber + '\'' +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
-                ", status='" + status + '\'' +
                 ", accountnumber='" + accountnumber + '\'' +
                 ", balance=" + balance +
                 ", isLogin=" + isLogin +
