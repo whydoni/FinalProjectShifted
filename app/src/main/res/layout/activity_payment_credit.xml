@@ -70,6 +70,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="20dp"
+            android:textColor="#FF5722"
             android:text="Rekening Debet"/>
         <EditText
             android:id="@+id/et_rekening"
@@ -84,6 +85,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="20dp"
+            android:textColor="#FF5722"
             android:text="Jenis Kartu Kredit"/>
         <EditText
             android:id="@+id/et_kreditjenis"
@@ -103,7 +105,7 @@
         android:orientation="vertical"
         android:layout_below="@id/ll_header"
         android:background="@drawable/bg_transparent"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:layout_marginRight="25dp"
         android:layout_marginLeft="25dp">
 
@@ -112,6 +114,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="20dp"
+            android:textColor="#FF5722"
             android:text="Nomor Kartu Kredit"/>
         <EditText
             android:id="@+id/et_kreditno"
@@ -126,6 +129,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="20dp"
+            android:textColor="#FF5722"
             android:text="Nominal Pembayaran"/>
         <EditText
             android:id="@+id/et_nominal"
@@ -140,16 +144,33 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="20dp"
+            android:textColor="#FF5722"
             android:text="Konfirmasi Password"/>
-        <EditText
-            android:id="@+id/et_konfirmasi"
+        <LinearLayout
+            android:id="@+id/password_field"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:layout_marginBottom="10dp"
-            android:inputType="textPassword"
-            android:hint="Password"/>
+            android:layout_marginBottom="10dp">
+
+            <EditText
+                android:id="@+id/et_konfirmasi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:inputType="textPassword"
+                android:hint=" Password"
+                android:singleLine="true"/>
+
+            <ImageButton
+                android:id="@+id/bt_reveal"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/ic_baseline_remove_red_eye_24"
+                android:layout_gravity="center"
+                android:backgroundTint="#FF5722"/>
+        </LinearLayout>
     </LinearLayout>
 
     <androidx.appcompat.widget.AppCompatButton
@@ -169,7 +190,7 @@
         android:layout_height="60dp"
         android:orientation="horizontal"
         android:background="#FF5722"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:layout_below="@id/bt_bayar">
 
         <ImageView
